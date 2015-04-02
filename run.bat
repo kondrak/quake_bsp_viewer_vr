@@ -1,0 +1,1 @@
+QuakeBspViewerVR maps/ntkjidm2.bsp -vr
