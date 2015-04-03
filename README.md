@@ -48,7 +48,7 @@ And yes, I know that Q3 sources are open now but I felt like taking up a challen
 
 Known issues
 -------
-You may run into is wrong handling of bsp leaves that contain doors, moving platforms etc. This is because they are handled differently by the original game. For this reason, you'll notice that doors may not render or appear suddenly when the camera reaches certain arbitrary position on the map (q3ctf1 is a good example where some leaves don't render at the right moment if PVS is enabled). 
+You may encounter wrong rendering of bsp leaves that contain doors, moving platforms etc. This is because they are handled differently by the original game. For this reason, you'll notice that doors may not render or appear suddenly when the camera reaches certain arbitrary position on the map (q3ctf1 is a good example where some bsp leaves don't render at the right moment if PVS is enabled). 
 
 Having the Oculus Rift in extended desktop will very likely result in heavy judder even if you have no FPS drops. At this time OpenGL support is still less than optimal in OculusSDK.
 
