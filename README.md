@@ -21,7 +21,7 @@ Launching the viewer in VR mode (windowed Direct Mode):
 
 <code>QuakeBspViewer.exe maps/ntkjidm2.bsp -vr -window</code>
 
-In non-VR mode, use tilde key (~) to toggle statistics menu on/off. In VR mode, toggle between statistics, VR debug data and IR tracking camera frustum rendering (if camera is available).
+In non-VR mode, use tilde key (~) to toggle statistics menu on/off. In VR mode, toggle between statistics, VR debug data and IR tracking camera frustum rendering (if camera is available). SPACE key will recenter your tracking position.
 
 Note that you must have Quake III Arena textures and models unpacked in the root directory if you want to see proper texturing on screen, otherwise you'll just see a bunch of lightmapped, colored checker-board textures filling the screen which is less than impressive.
 
