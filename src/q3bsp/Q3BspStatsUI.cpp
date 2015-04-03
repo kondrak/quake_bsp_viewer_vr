@@ -14,6 +14,8 @@ Q3StatsUI::Q3StatsUI(BspMap *map) : StatsUI(map)
     // make the font slightly bigger in VR
     if (g_application.VREnabled())
         m_font->SetScale(Math::Vector2f(3.f * (float)g_renderContext.height / 1080.f, 3.f * (float)g_renderContext.height / 1080.f));
+    else
+        m_font->SetScale(Math::Vector2f(2.f, 2.f));
 }
 
 
