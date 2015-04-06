@@ -1,7 +1,7 @@
 #ifndef CAMERA_INCLUDED
 #define CAMERA_INCLUDED
 
-#include "renderer/Math.hpp"
+#include "Math.hpp"
 
 /*
  *  DOF6/FPS camera

@@ -16,6 +16,7 @@
     <ClCompile Include="src\Frustum.cpp" />
     <ClCompile Include="src\InputHandlers.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Math.cpp" />
     <ClCompile Include="src\q3bsp\Q3BSPLoader.cpp" />
     <ClCompile Include="src\q3bsp\Q3BspMap.cpp" />
     <ClCompile Include="src\q3bsp\Q3BspPatch.cpp" />
@@ -23,7 +24,6 @@
     <ClCompile Include="src\renderer\Camera.cpp" />
     <ClCompile Include="src\renderer\CameraDirector.cpp" />
     <ClCompile Include="src\renderer\Font.cpp" />
-    <ClCompile Include="src\renderer\Math.cpp" />
     <ClCompile Include="src\renderer\OculusVR.cpp" />
     <ClCompile Include="src\renderer\OculusVRDebug.cpp" />
     <ClCompile Include="src\renderer\OpenGL.cpp" />
@@ -41,6 +41,7 @@
     <ClInclude Include="src\common\StatsUI.hpp" />
     <ClInclude Include="src\Frustum.hpp" />
     <ClInclude Include="src\InputHandlers.hpp" />
+    <ClInclude Include="src\Math.hpp" />
     <ClInclude Include="src\q3bsp\Q3Bsp.hpp" />
     <ClInclude Include="src\q3bsp\Q3BSPLoader.hpp" />
     <ClInclude Include="src\q3bsp\Q3BspMap.hpp" />
@@ -50,7 +51,6 @@
     <ClInclude Include="src\renderer\Camera.hpp" />
     <ClInclude Include="src\renderer\CameraDirector.hpp" />
     <ClInclude Include="src\renderer\Font.hpp" />
-    <ClInclude Include="src\renderer\Math.hpp" />
     <ClInclude Include="src\renderer\OculusVR.hpp" />
     <ClInclude Include="src\renderer\OculusVRDebug.hpp" />
     <ClInclude Include="src\renderer\OpenGL.hpp" />

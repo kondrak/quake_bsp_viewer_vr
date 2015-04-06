@@ -1,4 +1,4 @@
-#include "renderer/Math.hpp"
+#include "Math.hpp"
 
 namespace Math
 {

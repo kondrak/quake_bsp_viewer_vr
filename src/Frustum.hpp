@@ -2,7 +2,7 @@
 #define FRUSTUM_INCLUDED
 
 #include "renderer/OpenGL.hpp"
-#include "renderer/Math.hpp"
+#include "Math.hpp"
 
 /*
  * View frustum 

@@ -28,7 +28,7 @@
 #define LOG_MESSAGE_ASSERT(x, msg)
 #endif
 
-#include "renderer/Math.hpp"
+#include "Math.hpp"
 
 namespace Renderer
 {

@@ -54,9 +54,6 @@
     <ClCompile Include="src\renderer\CameraDirector.cpp">
       <Filter>Source Files\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\renderer\Math.cpp">
-      <Filter>Source Files\renderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\renderer\RenderContext.cpp">
       <Filter>Source Files\renderer</Filter>
     </ClCompile>
@@ -93,6 +90,9 @@
     <ClCompile Include="src\renderer\OVRCameraFrustum.cpp">
       <Filter>Source Files\renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.hpp">
@@ -126,9 +126,6 @@
       <Filter>Source Files\renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\renderer\CameraDirector.hpp">
-      <Filter>Source Files\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\Math.hpp">
       <Filter>Source Files\renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\renderer\RenderContext.hpp">
@@ -172,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="src\renderer\OVRCameraFrustum.hpp">
       <Filter>Source Files\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math.hpp">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

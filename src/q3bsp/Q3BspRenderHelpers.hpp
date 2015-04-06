@@ -1,7 +1,6 @@
 #ifndef Q3BSPRENDERHELPERS_INCLUDED
 #define Q3BSPRENDERHELPERS_INCLUDED
 
-#include "renderer/Math.hpp"
 #include "renderer/OpenGL.hpp"
 #include <vector>
 #include <map>

@@ -3,7 +3,7 @@
 
 #include <map>
 #include "InputHandlers.hpp"
-#include "renderer/Math.hpp"
+#include "Math.hpp"
 
 class BspMap;
 class StatsUI;

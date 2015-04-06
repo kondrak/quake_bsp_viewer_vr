@@ -1,9 +1,9 @@
 #include "q3bsp/Q3BspMap.hpp"
 #include "q3bsp/Q3BspPatch.hpp"
-#include "renderer/Math.hpp"
 #include "renderer/ShaderManager.hpp"
 #include "renderer/Texture.hpp"
 #include "renderer/TextureManager.hpp"
+#include "Math.hpp"
 #include <algorithm>
 #include <sstream>
 
