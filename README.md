@@ -17,10 +17,6 @@ Launching the viewer in VR mode (full screen Direct Mode):
 
 <code>QuakeBspViewer.exe maps/ntkjidm2.bsp -vr</code>
 
-Launching the viewer in VR mode (windowed Direct Mode):
-
-<code>QuakeBspViewer.exe maps/ntkjidm2.bsp -vr -window</code>
-
 In non-VR mode, use tilde key (~) to toggle statistics menu on/off. In VR mode, toggle between statistics, VR debug data and IR tracking camera frustum rendering (if camera is available). SPACE key will recenter your tracking position.
 
 Note that you must have Quake III Arena textures and models unpacked in the root directory if you want to see proper texturing on screen, otherwise you'll just see a bunch of lightmapped, colored checker-board textures filling the screen which is less than impressive.
@@ -35,7 +31,7 @@ This project uses following external libraries (included but I feel I have to me
 - GLEW extension library
 - stb_image library for image handling (c) Sean Barret
 - SDL2 library for window/input 
-- OculusVR SDK 0.5.0.1 and corrsesponding runtime for VR support
+- OculusVR SDK 0.6.0.0 and corrsesponding runtime for VR support
 
 References
 -------

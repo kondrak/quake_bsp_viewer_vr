@@ -21,16 +21,14 @@ int main(int argc, char **argv)
     }
 
     bool vrMode     = false;
-    bool vrWindowed = false;
 
     for (int i = 1; i < argc; ++i)
     {
         if (!strncmp(argv[i], "-vr", 3))
             vrMode = true;
-
-        if (!strncmp(argv[i], "-window", 7))
-            vrWindowed = true;
     }
+
+    ovrSizei windowSize;
 
     if (vrMode)
     {
@@ -40,10 +38,11 @@ int main(int argc, char **argv)
             SDL_Quit();
             return 1;
         }
-        OVR::Vector4i windowDim = g_oculusVR.RenderDimensions();
 
-        g_renderContext.Init("Quake BSP Viewer VR", vrWindowed ? 100  : windowDim.x, vrWindowed ? 100 : windowDim.y, 
-                                                    vrWindowed ? 1100 : windowDim.z, vrWindowed ? 618 : windowDim.w);
+        ovrSizei hmdResolution = g_oculusVR.GetResolution();
+        windowSize = { hmdResolution.w / 2, hmdResolution.h / 2 };
+
+        g_renderContext.Init("Quake BSP Viewer VR", 100, 100, windowSize.w, windowSize.h);
     }
     else
     {
@@ -62,7 +61,7 @@ int main(int argc, char **argv)
 
     if (vrMode)
     {
-        if (!g_oculusVR.InitVRBuffers())
+        if (!g_oculusVR.InitVRBuffers(windowSize.w, windowSize.h))
         {
             LOG_MESSAGE_ASSERT(false, "Failed to create VR render buffers.");
             g_renderContext.Destroy();
@@ -71,13 +70,6 @@ int main(int argc, char **argv)
             return 1;
         }
 
-        SDL_SysWMinfo info;
-        memset(&info, 0, sizeof(SDL_SysWMinfo));
-        SDL_VERSION(&info.version);
-        SDL_GetWindowWMInfo(g_renderContext.window, &info);
-
-        OVR::Vector4i windowDim = g_oculusVR.RenderDimensions();
-        g_oculusVR.ConfigureRender(info.info.win.window, vrWindowed ? 1100 : windowDim.z, vrWindowed ? 618 : windowDim.w);
         g_oculusVR.CreateDebug();
     }
     else
@@ -125,9 +117,11 @@ int main(int argc, char **argv)
                 // camera frustum should use the non-inverted and non-translated MVP (fixed position, correct orientation)
                 glUniformMatrix4fv(ShaderManager::GetInstance()->UseShaderProgram(ShaderManager::OVRFrustumShader).uniforms[ModelViewProjectionMatrix], 1, GL_FALSE, &OVRMVP.Transposed().M[0][0]);
                 g_application.OnRender();  
+                g_oculusVR.OnEyeRenderFinish(eyeIndex);
             }
 
-            g_oculusVR.OnRenderEnd();
+            g_oculusVR.SubmitFrame();
+            g_oculusVR.BlitMirror();            
         }
         else
         {
@@ -138,10 +132,9 @@ int main(int argc, char **argv)
 
             g_renderContext.ModelViewProjectionMatrix = g_cameraDirector.GetActiveCamera()->ViewMatrix() * g_cameraDirector.GetActiveCamera()->ProjectionMatrix();
             g_application.OnRender();
-
-            SDL_GL_SwapWindow(g_renderContext.window);
         }
 
+        SDL_GL_SwapWindow(g_renderContext.window);
         last = now;
     }
 
