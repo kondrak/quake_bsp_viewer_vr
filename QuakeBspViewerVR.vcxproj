@@ -112,6 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(OCULUS_SDK)/LibOVR/Include;$(OCULUS_SDK)/LibOVR/Src;$(OCULUS_SDK)/LibOVRKernel/Src</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
