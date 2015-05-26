@@ -13,7 +13,7 @@ To run the application, supply the bsp filename as a cmd line argument:
 
 <code>QuakeBspViewer.exe maps/ntkjidm2.bsp</code>
 
-Launching the viewer in VR mode (full screen Direct Mode):
+Launching the viewer in VR (Direct Mode):
 
 <code>QuakeBspViewer.exe maps/ntkjidm2.bsp -vr</code>
 
@@ -31,7 +31,7 @@ This project uses following external libraries (included but I feel I have to me
 - GLEW extension library
 - stb_image library for image handling (c) Sean Barret
 - SDL2 library for window/input 
-- OculusVR SDK 0.6.0.0 and corrsesponding runtime for VR support
+- OculusVR SDK 0.6.0.0 and corresponding runtime for VR support
 
 References
 -------
