@@ -64,8 +64,8 @@ int main(int argc, char **argv)
         if (!g_oculusVR.InitVRBuffers(windowSize.w, windowSize.h))
         {
             LOG_MESSAGE_ASSERT(false, "Failed to create VR render buffers.");
-            g_renderContext.Destroy();
             g_oculusVR.DestroyVR();
+            g_renderContext.Destroy();
             SDL_Quit();
             return 1;
         }
@@ -139,8 +139,8 @@ int main(int argc, char **argv)
     }
 
     g_application.OnTerminate();
-    g_renderContext.Destroy();
     g_oculusVR.DestroyVR();
+    g_renderContext.Destroy();
     SDL_Quit();
 
     return 0;

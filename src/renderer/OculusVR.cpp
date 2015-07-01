@@ -145,7 +145,7 @@ void OculusVR::DestroyVR()
         delete m_debugData;
         delete m_cameraFrustum;
 
-        m_debugData = nullptr;
+        m_debugData     = nullptr;
         m_cameraFrustum = nullptr;
 
         if (glIsFramebuffer(m_mirrorFBO))
@@ -156,6 +156,8 @@ void OculusVR::DestroyVR()
         for (int eyeIdx = 0; eyeIdx < ovrEye_Count; eyeIdx++)
         {
             m_eyeBuffers[eyeIdx]->Destroy(m_hmd);
+            delete m_eyeBuffers[eyeIdx];
+            m_eyeBuffers[eyeIdx] = nullptr;
         }
     }
 }
