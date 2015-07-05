@@ -91,16 +91,16 @@ int main(int argc, char **argv)
 
     SDL_ShowCursor(SDL_DISABLE);
     g_application.OnStart(argc, argv, vrMode);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
     double now = 0, last = 0;
 
     while (g_application.Running())
     {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         // handle key presses
         processEvents();
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
         if (g_application.VREnabled())
         {
