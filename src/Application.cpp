@@ -170,6 +170,19 @@ void Application::OnKeyPress(KeyCode key)
             if (g_oculusVR.IsDebugHMD() || !g_oculusVR.IsDK2())
                 if (m_debugRenderState == RenderVRTrackingCamera)
                     m_debugRenderState++;
+
+            switch (m_debugRenderState)
+            {
+            case RenderDK2LatencyTiming:
+                g_oculusVR.ShowPerfStats(ovrPerfHud_LatencyTiming);
+                break;
+            case RenderDK2RenderTiming:
+                g_oculusVR.ShowPerfStats(ovrPerfHud_RenderTiming);
+                break;
+            default:
+                g_oculusVR.ShowPerfStats(ovrPerfHud_Off);
+                break;
+            }
         }
         if (m_debugRenderState >= DebugRenderMax)
             m_debugRenderState = None;
