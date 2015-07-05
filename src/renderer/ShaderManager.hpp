@@ -25,6 +25,7 @@ public:
     const ShaderProgram& GetShaderProgram(ShaderName type) const { return m_shaderProgram[type]; }
     const ShaderProgram& GetActiveShader() const { return m_shaderProgram[m_activeShader]; }
     const ShaderProgram& UseShaderProgram(ShaderName type);
+    void  DisableShader();
 private:
     ShaderManager() : m_activeShader(NUM_SHADERS)
     {

@@ -174,6 +174,12 @@ void Application::OnKeyPress(KeyCode key)
         if (m_debugRenderState >= DebugRenderMax)
             m_debugRenderState = None;
         break;
+    case KEY_M:
+        m_mirrorMode++;
+
+        if (m_mirrorMode == MM_Count)
+            m_mirrorMode = Mirror_Regular;
+        break;
     case KEY_ESC:
         Terminate();
         break;

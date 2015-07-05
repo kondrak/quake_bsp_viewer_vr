@@ -64,6 +64,11 @@ const ShaderProgram& ShaderManager::UseShaderProgram(ShaderName type)
     return m_shaderProgram[type];
 }
 
+void ShaderManager::DisableShader()
+{
+    glUseProgram(0);
+    m_activeShader = NUM_SHADERS;
+}
 
 std::string ShaderManager::ReadShaderFromFile(const char *filename)
 {

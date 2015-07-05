@@ -33,6 +33,7 @@
     <ClCompile Include="src\renderer\Texture.cpp" />
     <ClCompile Include="src\renderer\TextureManager.cpp" />
     <ClCompile Include="src\StringHelpers.cpp" />
+    <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="contrib\stb_image\stb_image.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="src\renderer\Texture.hpp" />
     <ClInclude Include="src\renderer\TextureManager.hpp" />
     <ClInclude Include="src\StringHelpers.hpp" />
+    <ClInclude Include="src\Utils.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{74D78140-348F-4C55-9D29-C41940DBC100}</ProjectGuid>

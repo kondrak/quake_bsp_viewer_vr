@@ -138,6 +138,56 @@ bool OculusVR::InitVRBuffers(int windowWidth, int windowHeight)
     return true;
 }
 
+bool OculusVR::InitNonDistortMirror(int windowWidth, int windowHeight)
+{
+    LOG_MESSAGE_ASSERT(!glIsFramebuffer(m_nonDistortFBO), "Non-distort mirror FBO already initialized!");
+
+    // we render per-eye only, so take only half of the target window width
+    windowWidth /= 2;
+    m_nonDistortViewPortWidth  = windowWidth;
+    m_nonDistortViewPortHeight = windowHeight;
+
+    // Configure non-distorted frame buffer
+    glGenTextures(1, &m_nonDistortTexture);
+    glBindTexture(GL_TEXTURE_2D, m_nonDistortTexture);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, windowWidth, windowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+
+    // create depth buffer
+    glGenTextures(1, &m_nonDistortDepthBuffer);
+    glBindTexture(GL_TEXTURE_2D, m_nonDistortDepthBuffer);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    GLenum internalFormat = GL_DEPTH_COMPONENT24;
+    GLenum type = GL_UNSIGNED_INT;
+
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, windowWidth, windowHeight, 0, GL_DEPTH_COMPONENT, type, NULL);
+
+    // create FBO for non-disortion mirror
+    glGenFramebuffers(1, &m_nonDistortFBO);
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, m_nonDistortFBO);
+    glFramebufferTexture2D(GL_READ_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_nonDistortTexture, 0);
+    glFramebufferRenderbuffer(GL_READ_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, 0);
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    {
+        glDeleteFramebuffers(1, &m_nonDistortFBO);
+        LOG_MESSAGE_ASSERT(false, "Could not initialize non-distorted mirror buffers!");
+        return false;
+    }
+
+    return true;
+}
+
 void OculusVR::DestroyVR()
 {
     if (m_hmd)
@@ -150,6 +200,15 @@ void OculusVR::DestroyVR()
 
         if (glIsFramebuffer(m_mirrorFBO))
             glDeleteFramebuffers(1, &m_mirrorFBO);
+
+        if (glIsFramebuffer(m_nonDistortFBO))
+            glDeleteFramebuffers(1, &m_nonDistortFBO);
+
+        if (glIsTexture(m_nonDistortTexture))
+            glDeleteTextures(1, &m_nonDistortTexture);
+
+        if (glIsTexture(m_nonDistortDepthBuffer))
+            glDeleteTextures(1, &m_nonDistortDepthBuffer);
 
         ovrHmd_DestroyMirrorTexture(m_hmd, (ovrTexture*)m_mirrorTexture);
 
@@ -181,20 +240,27 @@ void OculusVR::OnRenderStart()
 }
 
 
-const OVR::Matrix4f OculusVR::OnEyeRender(int eyeIndex) const
+const OVR::Matrix4f OculusVR::OnEyeRender(int eyeIndex)
 {
     int eye = m_hmd->EyeRenderOrder[eyeIndex];
     m_eyeBuffers[eye]->OnRender();
 
-    return OVR::Matrix4f(ovrMatrix4f_Projection(m_eyeRenderDesc[eye].Fov, 0.01f, 10000.0f, ovrProjection_RightHanded)) *
-           OVR::Matrix4f::Translation(m_hmdToEyeViewOffset[eye]) *
-           OVR::Matrix4f(OVR::Quatf(m_eyeRenderPose[eye].Orientation).Inverted()) *
-           OVR::Matrix4f::Translation(-OVR::Vector3f(m_eyeRenderPose[eye].Position));
+    m_projectionMatrix[eye] = OVR::Matrix4f(ovrMatrix4f_Projection(m_eyeRenderDesc[eye].Fov, 0.01f, 10000.0f, ovrProjection_RightHanded));
+    m_eyeViewOffset[eye]    = OVR::Matrix4f::Translation(m_hmdToEyeViewOffset[eye]);
+    m_eyeOrientation[eye]   = OVR::Matrix4f(OVR::Quatf(m_eyeRenderPose[eye].Orientation).Inverted());
+    m_eyePose[eye]          = OVR::Matrix4f::Translation(-OVR::Vector3f(m_eyeRenderPose[eye].Position));
+
+    return m_projectionMatrix[eye] * m_eyeViewOffset[eye] * m_eyeOrientation[eye] * m_eyePose[eye];
 }
 
 void OculusVR::OnEyeRenderFinish(int eyeIndex)
 {
     m_eyeBuffers[ m_hmd->EyeRenderOrder[eyeIndex] ]->OnRenderFinish();
+}
+
+const OVR::Matrix4f OculusVR::GetEyeMVPMatrix(int eyeIndex) const
+{
+    return m_projectionMatrix[eyeIndex] * m_eyeViewOffset[eyeIndex] * m_eyeOrientation[eyeIndex] * m_eyePose[eyeIndex];
 }
 
 void OculusVR::SubmitFrame()
@@ -225,14 +291,54 @@ void OculusVR::SubmitFrame()
     ovrResult result = ovrHmd_SubmitFrame(m_hmd, 0, &viewScaleDesc, layerList, 1);
 }
 
-void OculusVR::BlitMirror()
+void OculusVR::BlitMirror(ovrEyeType numEyes, int offset)
 {
     // Blit mirror texture to back buffer
     glBindFramebuffer(GL_READ_FRAMEBUFFER, m_mirrorFBO);
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
     GLint w = m_mirrorTexture->OGL.Header.TextureSize.w;
     GLint h = m_mirrorTexture->OGL.Header.TextureSize.h;
-    glBlitFramebuffer(0, h, w, 0, 0, 0, w, h, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+
+    switch (numEyes)
+    {
+    case ovrEye_Count:
+        glBlitFramebuffer(0, h, w, 0, 0, 0, w, h, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+        break;
+    case ovrEye_Left:
+        glBlitFramebuffer(0, h, w / 2, 0, offset, 0, w / 2 + offset, h, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+        break;
+    case ovrEye_Right:
+        glBlitFramebuffer(w / 2, h, w, 0, offset, 0, w / 2 + offset, h, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+        break;
+    default:
+        LOG_MESSAGE_ASSERT(false, "Unrecognized ovrEyeType");
+    }
+
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+}
+
+void OculusVR::OnNonDistortMirrorStart()
+{
+    LOG_MESSAGE_ASSERT(glIsFramebuffer(m_nonDistortFBO), "Non-distort mirror FBO not initialized!");
+
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_nonDistortFBO);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_nonDistortTexture, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_nonDistortDepthBuffer, 0);
+
+    glViewport(0, 0, m_nonDistortViewPortWidth, m_nonDistortViewPortHeight);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void OculusVR::BlitNonDistortMirror(int offset)
+{
+    LOG_MESSAGE_ASSERT(glIsFramebuffer(m_nonDistortFBO), "Non-distort mirror FBO not initialized!");
+
+    // Blit non distorted mirror to backbuffer
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, m_nonDistortFBO);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+    GLint dstX = 0 + offset;
+    GLint dstW = m_nonDistortViewPortWidth + offset;
+    glBlitFramebuffer(0, 0, m_nonDistortViewPortWidth, m_nonDistortViewPortHeight, dstX, 0, dstW, m_nonDistortViewPortHeight, GL_COLOR_BUFFER_BIT, GL_NEAREST);
     glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
 }
 

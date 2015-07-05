@@ -15,7 +15,19 @@ class StatsUI;
 class Application
 {
 public:
-    Application() : m_running(true), m_VREnabled(false), m_q3map(NULL), m_q3stats(NULL), m_debugRenderState(RenderMapStats)
+    // Oculus VR mirror modes
+    enum VRMirrorMode
+    {
+        Mirror_Regular,
+        Mirror_RegularLeftEye,
+        Mirror_RegularRightEye,
+        Mirror_NonDistort,
+        Mirror_NonDistortLeftEye,
+        Mirror_NonDistortRightEye,
+        MM_Count
+    };
+
+    Application() : m_running(true), m_mirrorMode(Mirror_Regular), m_VREnabled(false), m_q3map(NULL), m_q3stats(NULL), m_debugRenderState(RenderMapStats)
     {
     }
 
@@ -34,6 +46,7 @@ public:
     void OnKeyRelease(KeyCode key);
     void OnMouseMove(int x, int y);
     bool VREnabled() const { return m_VREnabled; }
+    const VRMirrorMode CurrMirrorMode() const { return (VRMirrorMode)m_mirrorMode; }
 private:
     void UpdateCamera( float dt );
     inline void SetKeyPressed(KeyCode key, bool pressed) { m_keyStates[key] = pressed; }
@@ -45,6 +58,8 @@ private:
 
     bool m_running;
     bool m_VREnabled;
+    int  m_mirrorMode;
+
     std::map< KeyCode, bool > m_keyStates; 
 
     BspMap  *m_q3map   = NULL;    // loaded map
