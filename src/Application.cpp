@@ -168,8 +168,16 @@ void Application::OnKeyPress(KeyCode key)
         else
         {
             if (g_oculusVR.IsDebugHMD() || !g_oculusVR.IsDK2())
+            {
                 if (m_debugRenderState == RenderVRTrackingCamera)
                     m_debugRenderState++;
+            }
+
+            // attempt to render performance hud with debug device causes a crash (SDK 0.6.0.1)
+            if (g_oculusVR.IsDebugHMD() && m_debugRenderState > RenderVRTrackingCamera)
+            {
+                m_debugRenderState = None;
+            }
 
             switch (m_debugRenderState)
             {
