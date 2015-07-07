@@ -3,6 +3,12 @@ Quake BSP map viewer with Oculus DK2 support
 
 This is a proof-of-concept Quake map viewer. It handles basic geometry and curved patch rendering but with no support for game-specific shaders, entities etc. It implement PVS and frustum culling so performance is optimal. At the moment only the Quake III Arena maps are supported but an interface is provided for other BSP versions in the future.
 
+Youtube demo:
+
+[![Screenshot](http://kondrak.info/images/q3vr_youtube.png?raw=true)](https://www.youtube.com/watch?v=pAGLW82ryBc)
+
+Screenshots:
+
 ![Screenshot](http://kondrak.info/images/qbsp/qbsp1.png?raw=true)
 ![Screenshot](http://kondrak.info/images/qbsp/qbsp3.png?raw=true)
 ![Screenshot](http://kondrak.info/images/qbsp/q3vr1.png?raw=true)
