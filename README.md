@@ -52,8 +52,6 @@ Known issues
 -------
 You may encounter wrong rendering of bsp leaves that contain doors, moving platforms etc. This is because they are handled differently by the original game. For this reason, you'll notice that doors may not render or appear suddenly when the camera reaches certain arbitrary position on the map (q3ctf1 is a good example where some bsp leaves don't render at the right moment if PVS is enabled). 
 
-Having the Oculus Rift in extended desktop will very likely result in heavy judder even if you have no FPS drops. At this time OpenGL support is still less than optimal in OculusSDK.
-
 Todo
 ----
 Here's a list of ideas that could be fun to implement over time:

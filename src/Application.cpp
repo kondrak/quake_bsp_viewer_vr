@@ -158,6 +158,10 @@ void Application::OnKeyPress(KeyCode key)
     case KEY_F7:
         m_q3map->ToggleRenderFlag(Q3RenderSkipFC);
         break;
+    case KEY_F8:
+        if (VREnabled())
+            g_oculusVR.SetMSAA(!g_oculusVR.MSAAEnabled());
+        break;
     case KEY_TILDE:
         m_debugRenderState++;
         if (!VREnabled())

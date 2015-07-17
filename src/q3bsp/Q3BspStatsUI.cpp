@@ -1,11 +1,13 @@
 #include "Application.hpp"
 #include "q3bsp/Q3BspMap.hpp"
 #include "q3bsp/Q3BspStatsUI.hpp"
+#include "renderer/OculusVR.hpp"
 #include "renderer/RenderContext.hpp"
 #include <sstream>
 
 extern RenderContext g_renderContext;
 extern Application   g_application;
+extern OculusVR      g_oculusVR;
 
 Q3StatsUI::Q3StatsUI(BspMap *map) : StatsUI(map)
 {
@@ -104,4 +106,12 @@ void Q3StatsUI::Render()
         m_font->SetColor(Math::Vector4f(0.f, 1.f, 0.f, 1.f));
     m_font->drawText("F7 - use frustum culling", keysX, keysY - ySpacing * 7.f, 0.f);
     m_font->SetColor(Math::Vector4f(1.f, 1.f, 1.f, 1.f));
+
+    if (g_application.VREnabled())
+    {
+        if (g_oculusVR.MSAAEnabled())
+            m_font->SetColor(Math::Vector4f(0.f, 1.f, 0.f, 1.f));
+        m_font->drawText("F8 - multisampling (MSAA)", keysX, keysY - ySpacing * 8.f, 0.f);
+        m_font->SetColor(Math::Vector4f(1.f, 1.f, 1.f, 1.f));
+    }
 }
