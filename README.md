@@ -19,11 +19,11 @@ To run the application, supply the bsp filename as a cmd line argument:
 
 <code>QuakeBspViewer.exe maps/ntkjidm2.bsp</code>
 
-Launching the viewer in VR (Direct Mode):
+Launching the viewer in VR:
 
 <code>QuakeBspViewer.exe maps/ntkjidm2.bsp -vr</code>
 
-In non-VR mode, use tilde key (~) to toggle statistics menu on/off. In VR mode, toggle between statistics, VR debug data and IR tracking camera frustum rendering (if camera is available). SPACE key will recenter your tracking position.
+In non-VR mode, use tilde key (~) to toggle statistics menu on/off. In VR mode, toggle between statistics, VR debug data and IR tracking camera frustum rendering (if camera is available). SPACE key will recenter your tracking position. Press M to toggle between different mirror modes.
 
 Note that you must have Quake III Arena textures and models unpacked in the root directory if you want to see proper texturing on screen, otherwise you'll just see a bunch of lightmapped, colored checker-board textures filling the screen which is less than impressive.
 
@@ -59,5 +59,5 @@ Here's a list of ideas that could be fun to implement over time:
 - add support for older bsp formats (ie. Quake1, Quake2)
 - render map entities (weapons, armor, other pickups)
 - support loading data from pk3/pak files
-- add support for rendering Quake 3 shaders (if you're REALLY bored)
-- bsp patch tesselation on the fly - you give the level, we rework it!
+- add support for rendering Quake 3 shaders
+- bsp patch tesselation on the fly
