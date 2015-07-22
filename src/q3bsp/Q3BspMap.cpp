@@ -37,24 +37,6 @@ Q3BspMap::~Q3BspMap()
         }
     }
 
-    for (auto &it : m_renderBuffers.m_faceVBOs)
-    {
-        if (glIsBuffer(it.second.m_vertexBuffer))
-        {
-            glDeleteBuffers(1, &(it.second.m_vertexBuffer));
-        }
-
-        if (glIsBuffer(it.second.m_texcoordBuffer))
-        {
-            glDeleteBuffers(1, &(it.second.m_texcoordBuffer));
-        }
-
-        if (glIsBuffer(it.second.m_lightmapTexcoordBuffer))
-        {
-            glDeleteBuffers(1, &(it.second.m_lightmapTexcoordBuffer));
-        }
-    }
-
     for (auto &it : m_renderBuffers.m_patchVBOs)
     {
         for (auto &it2 : it.second)
