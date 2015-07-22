@@ -78,17 +78,8 @@
     <ClCompile Include="src\renderer\Font.cpp">
       <Filter>Source Files\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\renderer\OculusVR.cpp">
-      <Filter>Source Files\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderer\OculusVRDebug.cpp">
-      <Filter>Source Files\renderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\StringHelpers.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderer\OVRCameraFrustum.cpp">
-      <Filter>Source Files\renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Math.cpp">
       <Filter>Source Files</Filter>
@@ -161,17 +152,8 @@
     <ClInclude Include="src\renderer\Font.hpp">
       <Filter>Source Files\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\renderer\OculusVR.hpp">
-      <Filter>Source Files\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\OculusVRDebug.hpp">
-      <Filter>Source Files\renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\StringHelpers.hpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\OVRCameraFrustum.hpp">
-      <Filter>Source Files\renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Math.hpp">
       <Filter>Source Files</Filter>

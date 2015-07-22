@@ -6,10 +6,8 @@
 #include "renderer/ShaderManager.hpp"
 #include "q3bsp/Q3BspLoader.hpp"
 #include "q3bsp/Q3BspStatsUI.hpp"
-#include "renderer/OculusVR.hpp"
 
 extern RenderContext  g_renderContext;
-extern OculusVR       g_oculusVR;
 extern CameraDirector g_cameraDirector;
 
 
@@ -21,9 +19,8 @@ void Application::OnWindowResize(int newWidth, int newHeight)
     glViewport(0, 0, newWidth, newHeight);
 }
 
-void Application::OnStart(int argc, char **argv, bool vrMode)
+void Application::OnStart(int argc, char **argv)
 {
-    m_VREnabled = vrMode;   
     glEnable(GL_MULTISAMPLE);
 
     Q3BspLoader loader;
@@ -68,11 +65,7 @@ void Application::OnRender()
     // render the bsp
     if (m_q3map)
     {
-        // no need to calculate separate view matrix if we're in VR (OVR handles it for us)
-        if (!VREnabled())
-        {
-            g_cameraDirector.GetActiveCamera()->OnRender();
-        }
+        g_cameraDirector.GetActiveCamera()->OnRender();
 
         m_q3map->OnRenderStart();
         m_q3map->Render();
@@ -85,11 +78,6 @@ void Application::OnRender()
     case RenderMapStats:
         m_q3stats->Render();
         break;
-    case RenderVRData:
-        g_oculusVR.RenderDebug();
-        break;
-    case RenderVRTrackingCamera:
-        g_oculusVR.RenderTrackerFrustum();
     default:
         break;
     }
@@ -103,11 +91,6 @@ void Application::OnUpdate(float dt)
     // determine which faces are visible
     if (m_q3map)
         m_q3map->CalculateVisibleFaces(g_cameraDirector.GetActiveCamera()->Position());
-
-    if (VREnabled())
-    {
-        g_oculusVR.UpdateDebug();
-    }
 }
 
 
@@ -158,63 +141,17 @@ void Application::OnKeyPress(KeyCode key)
     case KEY_F7:
         m_q3map->ToggleRenderFlag(Q3RenderSkipFC);
         break;
-    case KEY_F8:
-        if (VREnabled())
-            g_oculusVR.SetMSAA(!g_oculusVR.MSAAEnabled());
-        break;
     case KEY_TILDE:
         m_debugRenderState++;
-        if (!VREnabled())
-        {
-            if (m_debugRenderState > RenderMapStats)
-                m_debugRenderState = None;
-        }
-        else
-        {
-            if (g_oculusVR.IsDebugHMD() || !g_oculusVR.IsDK2())
-            {
-                if (m_debugRenderState == RenderVRTrackingCamera)
-                    m_debugRenderState++;
-            }
 
-            // attempt to render performance hud with debug device causes a crash (SDK 0.6.0.1)
-            if (g_oculusVR.IsDebugHMD() && m_debugRenderState > RenderVRTrackingCamera)
-            {
-                m_debugRenderState = None;
-            }
-
-            switch (m_debugRenderState)
-            {
-            case RenderDK2LatencyTiming:
-                g_oculusVR.ShowPerfStats(ovrPerfHud_LatencyTiming);
-                break;
-            case RenderDK2RenderTiming:
-                g_oculusVR.ShowPerfStats(ovrPerfHud_RenderTiming);
-                break;
-            default:
-                g_oculusVR.ShowPerfStats(ovrPerfHud_Off);
-                break;
-            }
-        }
         if (m_debugRenderState >= DebugRenderMax)
             m_debugRenderState = None;
-        break;
-    case KEY_M:
-        m_mirrorMode++;
-
-        if (m_mirrorMode == MM_Count)
-            m_mirrorMode = Mirror_Regular;
         break;
     case KEY_ESC:
         Terminate();
         break;
     default:
         break;
-    }
-
-    if (VREnabled())
-    {
-        g_oculusVR.OnKeyPress(key);
     }
 }
 
@@ -227,17 +164,13 @@ void Application::OnKeyRelease(KeyCode key)
 
 void Application::OnMouseMove(int x, int y)
 {
-    if (!VREnabled())
-    {
-        g_cameraDirector.GetActiveCamera()->OnMouseMove(x, y);
-    }
+    g_cameraDirector.GetActiveCamera()->OnMouseMove(x, y);
 }
 
 
 void Application::UpdateCamera(float dt)
 {
-    // don't make movement too sickening in VR
-    static const float movementSpeed = VREnabled() ? 1.f : 8.f;
+    static const float movementSpeed = 8.f;
 
     if (KeyPressed(KEY_A))
         g_cameraDirector.GetActiveCamera()->Strafe(-movementSpeed * dt);

@@ -1,23 +1,17 @@
 #include "Application.hpp"
 #include "q3bsp/Q3BspMap.hpp"
 #include "q3bsp/Q3BspStatsUI.hpp"
-#include "renderer/OculusVR.hpp"
 #include "renderer/RenderContext.hpp"
 #include <sstream>
 
 extern RenderContext g_renderContext;
 extern Application   g_application;
-extern OculusVR      g_oculusVR;
 
 Q3StatsUI::Q3StatsUI(BspMap *map) : StatsUI(map)
 {
     m_font = new Font("res/font.png");
 
-    // make the font slightly bigger in VR
-    if (g_application.VREnabled())
-        m_font->SetScale(Math::Vector2f(3.f * (float)g_renderContext.height / 1080.f, 3.f * (float)g_renderContext.height / 1080.f));
-    else
-        m_font->SetScale(Math::Vector2f(2.f, 2.f));
+    m_font->SetScale(Math::Vector2f(2.f, 2.f));
 }
 
 
@@ -34,15 +28,11 @@ void Q3StatsUI::Render()
         return;
     }
 
-    // check if we should rescale the font for non-VR mode here, since user can change window size dynamically (unlike VR mode)
-    if (!g_application.VREnabled())
-        m_font->SetScale(Math::Vector2f(2.f * (float)g_renderContext.height / 768.f, 2.f * (float)g_renderContext.height / 768.f));
-
-    static const float statsX   = g_application.VREnabled() ? -0.19f : -0.99f;
-    static const float keysX    = g_application.VREnabled() ? -0.19f :  0.35f;
-    static const float statsY   = g_application.VREnabled() ?  0.25f :  0.70f;
-    static const float keysY    = g_application.VREnabled() ? -0.02f : -0.25f;
-    static const float ySpacing = 0.05f;
+    static const float statsX   = -0.99f;
+    static const float keysX    =  0.35f;
+    static const float statsY   =  0.70f;
+    static const float keysY    = -0.25f;
+    static const float ySpacing =  0.05f;
 
     const BspStats &stats = m_map->GetMapStats();
 
@@ -106,12 +96,4 @@ void Q3StatsUI::Render()
         m_font->SetColor(Math::Vector4f(0.f, 1.f, 0.f, 1.f));
     m_font->drawText("F7 - use frustum culling", keysX, keysY - ySpacing * 7.f, 0.f);
     m_font->SetColor(Math::Vector4f(1.f, 1.f, 1.f, 1.f));
-
-    if (g_application.VREnabled())
-    {
-        if (g_oculusVR.MSAAEnabled())
-            m_font->SetColor(Math::Vector4f(0.f, 1.f, 0.f, 1.f));
-        m_font->drawText("F8 - multisampling (MSAA)", keysX, keysY - ySpacing * 8.f, 0.f);
-        m_font->SetColor(Math::Vector4f(1.f, 1.f, 1.f, 1.f));
-    }
 }
