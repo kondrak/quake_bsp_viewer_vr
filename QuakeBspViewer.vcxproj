@@ -67,8 +67,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{74D78140-348F-4C55-9D29-C41940DBC100}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>QuakeBspViewerVR</RootNamespace>
-    <ProjectName>QuakeBspViewerVR</ProjectName>
+    <RootNamespace>QuakeBspViewer</RootNamespace>
+    <ProjectName>QuakeBspViewer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
