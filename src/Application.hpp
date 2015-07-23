@@ -46,8 +46,8 @@ private:
 
     std::map< KeyCode, bool > m_keyStates; 
 
-    BspMap  *m_q3map   = NULL;    // loaded map
-    StatsUI *m_q3stats = NULL;    // map stats UI
+    BspMap  *m_q3map;    // loaded map
+    StatsUI *m_q3stats;  // map stats UI
 
     enum DebugRender
     {
