@@ -17,13 +17,13 @@ Screenshots:
 ![Screenshot](http://kondrak.info/images/qbsp/q3vr2.png?raw=true)
 Usage
 -----
-To run the application, supply the bsp filename as a cmd line argument:
+Running the viewer:
 
-<code>QuakeBspViewer.exe maps/ntkjidm2.bsp</code>
+<code>QuakeBspViewer.exe <path-to-bsp-file> </code>
 
-Launching the viewer in VR:
+Running the viewer in VR:
 
-<code>QuakeBspViewer.exe maps/ntkjidm2.bsp -vr</code>
+<code>QuakeBspViewer.exe <path-to-bsp-file> -vr</code>
 
 In non-VR mode, use tilde key (~) to toggle statistics menu on/off. In VR mode, toggle between statistics, VR debug data and IR tracking camera frustum rendering (if camera is available). SPACE key will recenter your tracking position. Press M to toggle between different mirror modes.
 
@@ -46,9 +46,6 @@ References
 This viewer was made using resources on following websites:
 - http://www.mralligator.com/q3/
 - http://graphics.cs.brown.edu/games/quake/quake3.html
-
-And yes, I know that Q3 sources are open now but I felt like taking up a challenge ;)
-
 
 Known issues
 -------
