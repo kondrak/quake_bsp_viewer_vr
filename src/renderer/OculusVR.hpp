@@ -17,7 +17,7 @@ public:
     OculusVR() : m_hmdSession(nullptr),
                  m_debugData(nullptr),
                  m_cameraFrustum(nullptr),
-                 m_msaaEnabled(false)
+                 m_msaaEnabled(true)
     {
     }
 
