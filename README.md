@@ -34,7 +34,7 @@ To move around use the WASD keys. RF keys lift you up/down and QE keys let you d
 
 Dependencies
 -------
-This project uses following external libraries (included but I feel I have to mention it here):
+This project uses following external libraries:
 
 - GLEW extension library
 - stb_image library for image handling (c) Sean Barret
