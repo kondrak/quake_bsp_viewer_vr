@@ -177,19 +177,19 @@ void Application::OnKeyPress(KeyCode key)
                     m_debugRenderState++;
             }
 
-            // attempt to render performance hud with debug device causes a crash (SDK 0.6.0.1)
-            if (g_oculusVR.IsDebugHMD() && m_debugRenderState > RenderVRTrackingCamera)
-            {
-                m_debugRenderState = None;
-            }
-
             switch (m_debugRenderState)
             {
-            case RenderDK2LatencyTiming:
+            case RenderOVRLatencyTiming:
                 g_oculusVR.ShowPerfStats(ovrPerfHud_LatencyTiming);
                 break;
-            case RenderDK2RenderTiming:
+            case RenderOVRRenderTiming:
                 g_oculusVR.ShowPerfStats(ovrPerfHud_RenderTiming);
+                break;
+            case RenderOVRPerf:
+                g_oculusVR.ShowPerfStats(ovrPerfHud_PerfHeadroom);
+                break;
+            case RenderOVRVersion:
+                g_oculusVR.ShowPerfStats(ovrPerfHud_VersionInfo);
                 break;
             default:
                 g_oculusVR.ShowPerfStats(ovrPerfHud_Off);

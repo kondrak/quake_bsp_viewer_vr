@@ -471,12 +471,5 @@ void OculusVR::RenderTrackerFrustum()
 
 void OculusVR::ShowPerfStats(ovrPerfHudMode statsMode)
 {
-    if (!IsDebugHMD())
-    {
-        ovr_SetInt(m_hmdSession, "PerfHudMode", (int)statsMode);
-    }
-    else
-    {
-        LOG_MESSAGE("Performance Hud not available for debug HMD.");
-    }
+    ovr_SetInt(m_hmdSession, "PerfHudMode", (int)statsMode);
 }

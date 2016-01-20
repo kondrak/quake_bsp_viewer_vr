@@ -71,8 +71,10 @@ private:
         RenderMapStats,
         RenderVRData,
         RenderVRTrackingCamera,
-        RenderDK2LatencyTiming,   // added in SDK 0.6.0.1
-        RenderDK2RenderTiming,    // added in SDK 0.6.0.1
+        RenderOVRLatencyTiming,   // added in SDK 0.6.0.1
+        RenderOVRRenderTiming,    // added in SDK 0.6.0.1
+        RenderOVRPerf,
+        RenderOVRVersion,
         DebugRenderMax
     };
 
