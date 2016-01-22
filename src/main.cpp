@@ -23,11 +23,19 @@ int main(int argc, char **argv)
     }
 
     bool vrMode = false;
+    int screenWidth  = 0;
+    int screenHeight = 0;
 
     for (int i = 1; i < argc; ++i)
     {
         if (!strncmp(argv[i], "-vr", 3))
             vrMode = true;
+
+        if (!strncmp(argv[i], "-w", 2) && (i + 1 < argc))
+            screenWidth = atoi(argv[i + 1]);
+
+        if (!strncmp(argv[i], "-h", 2) && (i + 1 < argc))
+            screenHeight = atoi(argv[i + 1]);
     }
 
     ovrSizei windowSize;
@@ -42,13 +50,20 @@ int main(int argc, char **argv)
         }
 
         ovrSizei hmdResolution = g_oculusVR.GetResolution();
-        windowSize = { hmdResolution.w / 2, hmdResolution.h / 2 };
+
+        if(!screenWidth || !screenHeight)
+            windowSize = { hmdResolution.w / 2, hmdResolution.h / 2 }; 
+        else
+            windowSize = { screenWidth, screenHeight };
 
         g_renderContext.Init("Quake BSP Viewer VR", 100, 100, windowSize.w, windowSize.h);
     }
     else
     {
-        g_renderContext.Init("Quake BSP Viewer", 100, 100, 1024, 768);
+        if (!screenWidth)  screenWidth  = 1024;
+        if (!screenHeight) screenHeight = 768;
+
+        g_renderContext.Init("Quake BSP Viewer", 100, 100, screenWidth, screenHeight);
     }
 
     // initialize Glew
