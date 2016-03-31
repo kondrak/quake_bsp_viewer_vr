@@ -1,4 +1,4 @@
-Quake BSP map viewer with Oculus DK2 support
+Quake BSP map viewer with Oculus Rift support
 ================
 
 This is a proof-of-concept Quake map viewer. It handles basic geometry and curved patch rendering but with no support for game-specific shaders, entities etc. It implement PVS and frustum culling so performance is optimal. At the moment only the Quake III Arena maps are supported but an interface is provided for other BSP versions in the future.
@@ -39,7 +39,7 @@ This project uses following external libraries:
 - GLEW extension library
 - stb_image library for image handling (c) Sean Barret
 - SDL2 library for window/input 
-- OculusVR SDK 0.8.0.0 and corresponding runtime for VR support
+- OculusVR SDK 1.3.0 and corresponding runtime for VR support
 
 References
 -------
