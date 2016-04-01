@@ -171,7 +171,7 @@ void Application::OnKeyPress(KeyCode key)
         }
         else
         {
-            if (g_oculusVR.IsDebugHMD() || !g_oculusVR.IsDK2())
+            if (g_oculusVR.IsDebugHMD())
             {
                 if (m_debugRenderState == RenderVRTrackingCamera)
                     m_debugRenderState++;
@@ -182,11 +182,14 @@ void Application::OnKeyPress(KeyCode key)
             case RenderOVRLatencyTiming:
                 g_oculusVR.ShowPerfStats(ovrPerfHud_LatencyTiming);
                 break;
-            case RenderOVRRenderTiming:
-                g_oculusVR.ShowPerfStats(ovrPerfHud_RenderTiming);
+            case RenderOVRAppRenderTiming:
+                g_oculusVR.ShowPerfStats(ovrPerfHud_AppRenderTiming);
                 break;
             case RenderOVRPerf:
-                g_oculusVR.ShowPerfStats(ovrPerfHud_PerfHeadroom);
+                g_oculusVR.ShowPerfStats(ovrPerfHud_PerfSummary);
+                break;
+            case RenderOVRCompRenderTiming:
+                g_oculusVR.ShowPerfStats(ovrPerfHud_CompRenderTiming);
                 break;
             case RenderOVRVersion:
                 g_oculusVR.ShowPerfStats(ovrPerfHud_VersionInfo);

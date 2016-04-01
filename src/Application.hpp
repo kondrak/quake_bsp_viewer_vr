@@ -71,8 +71,9 @@ private:
         RenderMapStats,
         RenderVRData,
         RenderVRTrackingCamera,
-        RenderOVRLatencyTiming,   // added in SDK 0.6.0.1
-        RenderOVRRenderTiming,    // added in SDK 0.6.0.1
+        RenderOVRLatencyTiming,      // added in SDK 0.6.0.1
+        RenderOVRAppRenderTiming,    // added in SDK 0.6.0.1
+        RenderOVRCompRenderTiming,   // added in SDK 1.3.0
         RenderOVRPerf,
         RenderOVRVersion,
         DebugRenderMax

@@ -6,10 +6,10 @@
 #include "renderer/OculusVRDebug.hpp"
 #include "renderer/OVRCameraFrustum.hpp"
 #include "Extras/OVR_Math.h"
-#include "OVR_CAPI_0_8_0.h"
+#include "OVR_CAPI.h"
 
 /*
- * Oculus Rift DK2 setup class (as of SDK 0.8.0.0)
+ * Oculus Rift setup class (as of SDK 1.3.0)
  */
 class OculusVR
 {
@@ -17,7 +17,9 @@ public:
     OculusVR() : m_hmdSession(nullptr),
                  m_debugData(nullptr),
                  m_cameraFrustum(nullptr),
-                 m_msaaEnabled(true)
+                 m_msaaEnabled(false),
+                 m_frameIndex(0),
+                 m_sensorSampleTime(0)
     {
     }
 
@@ -43,7 +45,6 @@ public:
     void  RenderDebug();
     void  RenderTrackerFrustum();   
     bool  IsDebugHMD() const { return (m_hmdDesc.AvailableHmdCaps & ovrHmdCap_DebugDevice) != 0; }
-    bool  IsDK2() const { return m_hmdDesc.Type == ovrHmd_DK2; }
     void  ShowPerfStats(ovrPerfHudMode statsMode);
     void  SetMSAA(bool val) { m_msaaEnabled = val; }
     bool  MSAAEnabled() const { return m_msaaEnabled; }
@@ -61,16 +62,16 @@ private:
         void OnRenderMSAAFinish();
         void Destroy(const ovrSession &session);
 
-        ovrTexture m_eyeTexture;
         ovrSizei   m_eyeTextureSize;
         GLuint     m_eyeFbo      = 0;
+        GLuint     m_eyeTexId    = 0;
         GLuint     m_depthBuffer = 0;
 
         GLuint m_msaaEyeFbo   = 0;   // framebuffer for MSAA texture
         GLuint m_eyeTexMSAA   = 0;   // color texture for MSAA
         GLuint m_depthTexMSAA = 0;   // depth texture for MSAA
 
-        ovrSwapTextureSet *m_swapTextureSet = nullptr;
+        ovrTextureSwapChain m_swapTextureChain = nullptr;
     };
 
     // data and buffers used to render to HMD
@@ -78,7 +79,7 @@ private:
     ovrHmdDesc        m_hmdDesc;
     ovrEyeRenderDesc  m_eyeRenderDesc[ovrEye_Count];
     ovrPosef          m_eyeRenderPose[ovrEye_Count];
-    ovrVector3f       m_hmdToEyeViewOffset[ovrEye_Count];
+    ovrVector3f       m_hmdToEyeOffset[ovrEye_Count];
     OVRBuffer        *m_eyeBuffers[ovrEye_Count];
 
     OVR::Matrix4f     m_projectionMatrix[ovrEye_Count];
@@ -91,7 +92,8 @@ private:
     ovrTrackingState  m_trackingState;
 
     // mirror texture used to render HMD view to OpenGL window
-    ovrGLTexture     *m_mirrorTexture;
+    ovrMirrorTexture     m_mirrorTexture;
+    ovrMirrorTextureDesc m_mirrorDesc;
 
     // debug non-distorted mirror texture data
     GLuint            m_nonDistortTexture;
@@ -101,6 +103,8 @@ private:
     int               m_nonDistortViewPortWidth;
     int               m_nonDistortViewPortHeight;
     bool              m_msaaEnabled;
+    long long         m_frameIndex;
+    double            m_sensorSampleTime;
 
     // debug hardware output data
     OculusVRDebug    *m_debugData;
