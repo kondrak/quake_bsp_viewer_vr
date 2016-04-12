@@ -17,7 +17,7 @@ public:
     OculusVR() : m_hmdSession(nullptr),
                  m_debugData(nullptr),
                  m_cameraFrustum(nullptr),
-                 m_msaaEnabled(false),
+                 m_msaaEnabled(true),
                  m_frameIndex(0),
                  m_sensorSampleTime(0)
     {
@@ -83,7 +83,6 @@ private:
     OVRBuffer        *m_eyeBuffers[ovrEye_Count];
 
     OVR::Matrix4f     m_projectionMatrix[ovrEye_Count];
-    OVR::Matrix4f     m_eyeViewOffset[ovrEye_Count];
     OVR::Matrix4f     m_eyeOrientation[ovrEye_Count];
     OVR::Matrix4f     m_eyePose[ovrEye_Count];
 

@@ -240,7 +240,7 @@ void Application::OnMouseMove(int x, int y)
 void Application::UpdateCamera(float dt)
 {
     // don't make movement too sickening in VR
-    static const float movementSpeed = VREnabled() ? 1.f : 8.f;
+    static const float movementSpeed = (VREnabled() ? 48.f : 384.f) / Q3BspMap::s_worldScale;
 
     if (KeyPressed(KEY_A))
         g_cameraDirector.GetActiveCamera()->Strafe(-movementSpeed * dt);

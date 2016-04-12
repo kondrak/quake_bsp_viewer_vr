@@ -8,7 +8,7 @@
 #include <sstream>
 
 const int   Q3BspMap::s_tesselationLevel = 10;   // level of curved surface tesselation
-const float Q3BspMap::s_worldScale       = 64.f; // scale down factor for the map
+const float Q3BspMap::s_worldScale       = 48.f; // scale down factor for the map
 
 Q3BspMap::~Q3BspMap()
 {
