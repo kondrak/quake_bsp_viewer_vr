@@ -79,6 +79,9 @@ void Application::OnRender()
         m_q3map->OnRenderFinish();
     }
 
+    if(VREnabled())
+        g_oculusVR.RenderTrackerChaperone();
+
     // render map stats
     switch (m_debugRenderState)
     {
