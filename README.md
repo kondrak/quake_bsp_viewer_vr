@@ -39,7 +39,7 @@ This project uses following external libraries:
 - GLEW extension library
 - stb_image library for image handling (c) Sean Barret
 - SDL2 library for window/input 
-- OculusVR SDK 1.3.0 and corresponding runtime for VR support
+- OculusVR SDK 1.3+ and Rift Runtime installed
 
 References
 -------
