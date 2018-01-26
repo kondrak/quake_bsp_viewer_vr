@@ -19,11 +19,11 @@ Usage
 -----
 Running the viewer:
 
-<code>QuakeBspViewer.exe <path-to-bsp-file> </code>
+<code>QuakeBspViewer.exe &lt;path-to-bsp-file&gt; </code>
 
 Running the viewer in VR:
 
-<code>QuakeBspViewer.exe <path-to-bsp-file> -vr</code>
+<code>QuakeBspViewer.exe &lt;path-to-bsp-file&gt; -vr</code>
 
 In non-VR mode, use tilde key (~) to toggle statistics menu on/off. In VR mode, toggle between statistics, VR debug data and IR tracking camera frustum rendering (if camera is available). SPACE key will recenter your tracking position. Press M to toggle between different mirror modes.
 
