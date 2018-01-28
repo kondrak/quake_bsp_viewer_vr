@@ -3,7 +3,7 @@ Quake BSP map viewer with Oculus Rift support
 
 This is a proof-of-concept Quake map viewer. It handles basic geometry and curved patch rendering but with no support for game-specific shaders, entities etc. It implement PVS and frustum culling so performance is optimal. At the moment only Quake III Arena maps are supported but an interface is provided for adding other BSP versions in the future.
 
-Check out the <code>no_vr</code> branch for code without any OculusVR dependencies if you're just interested in seeing the renderer at work without having to install additional SDKs.
+The <code>no_vr</code> branch contains code without any OculusVR dependencies if you're just interested in focusing solely on OpenGL renderer without extra dependencies.
 
 Youtube demo:
 
@@ -25,12 +25,7 @@ Running the viewer in VR:
 
 <code>QuakeBspViewerVR.exe &lt;path-to-bsp-file&gt; -vr</code>
 
-In non-VR mode, use tilde key (~) to toggle statistics menu on/off. In VR mode, toggle between statistics, VR debug data and IR tracking camera frustum rendering (if camera is available). SPACE key will recenter your tracking position. Press M to toggle between different mirror modes.
-
-Note that you must have Quake III Arena textures and models unpacked in the root directory if you want to see proper texturing on screen, otherwise you'll just see a bunch of lightmapped, colored checker-board textures filling the screen which is less than impressive.
-
-To move around use the WASD keys. RF keys lift you up/down and QE keys let you do the barrel roll (in non-VR mode only).
-
+In non-VR mode, use tilde key (~) to toggle statistics menu on/off. In VR mode, toggle between statistics, VR debug data and IR tracking camera frustum rendering (if camera is available). SPACE key will recenter your tracking position. Press M to toggle between different mirror modes. Note that you must have Quake III Arena textures and models unpacked in the root directory if you want to see proper texturing. To move around use the WASD keys. RF keys lift you up/down and QE keys let you do the barrel roll (in non-VR mode only).
 
 Dependencies
 -------
@@ -39,7 +34,7 @@ This project uses following external libraries:
 - GLEW extension library
 - stb_image library for image handling (c) Sean Barret
 - SDL2 library for window/input 
-- OculusVR SDK 1.3+ and Rift Runtime installed
+- VR support requires OculusVR SDK 1.3+ and Oculus Home installed
 
 References
 -------
@@ -49,7 +44,7 @@ This viewer was made using resources on following websites:
 
 Known issues
 -------
-You may encounter wrong rendering of bsp leaves that contain doors, moving platforms etc. This is because they are handled differently by the original game. For this reason, you'll notice that doors may not render or appear suddenly when the camera reaches certain arbitrary position on the map (q3ctf1 is a good example where some bsp leaves don't render at the right moment if PVS is enabled). 
+Certain BSP leaves containing doors, moving platforms etc. may not render correctly with PVS enabled. This is because they are handled differently by the original game.
 
 Todo
 ----
