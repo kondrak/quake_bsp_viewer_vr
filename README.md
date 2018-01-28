@@ -38,7 +38,7 @@ This project uses following external libraries:
 
 References
 -------
-This viewer was made using resources on following websites:
+This viewer was made using following resources:
 - http://www.mralligator.com/q3/
 - http://graphics.cs.brown.edu/games/quake/quake3.html
 
