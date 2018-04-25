@@ -254,6 +254,18 @@ void Q3BspMap::CalculateVisibleFaces(const Math::Vector3f &cameraPosition)
     int cameraLeaf    = FindCameraLeaf(cameraPosition * Q3BspMap::s_worldScale);
     int cameraCluster = m_renderLeaves[cameraLeaf].visCluster;
 
+    for (const auto &rl : m_renderLeaves)
+    {
+        //loop through faces in this leaf and set them to 0
+        for (int j = 0; j < rl.numFaces; ++j)
+        {
+            int idx = leafFaces[ rl.firstFace + j ].face;
+            Q3FaceRenderable *face = &m_renderFaces[ idx ];
+
+            face->isAdded = 0;
+        }
+    }
+
     //loop through the leaves
     for (const auto &rl : m_renderLeaves)
     {
@@ -265,14 +277,17 @@ void Q3BspMap::CalculateVisibleFaces(const Math::Vector3f &cameraPosition)
         if( !HasRenderFlag( Q3RenderSkipFC ) && !m_frustum.BoxInFrustum(  rl.boundingBoxVertices ) )
             continue;
 
-        //loop through faces in this leaf and them to visibility set
+        //loop through faces in this leaf and add them to visibility set
         for (int j = 0; j < rl.numFaces; ++j)
         {
             int idx = leafFaces[ rl.firstFace + j ].face;
-            Q3FaceRenderable *face = &m_renderFaces[ leafFaces[ rl.firstFace + j ].face ];
+            Q3FaceRenderable *face = &m_renderFaces[ idx ];
 
-            if(std::find( m_visibleFaces.begin(), m_visibleFaces.end(), face ) == m_visibleFaces.end() )
+            if (face->isAdded == 0)
+            {
                 m_visibleFaces.push_back( face );
+                face->isAdded = 1;
+            }
         }
     }
 

@@ -36,6 +36,7 @@ struct Q3FaceRenderable
 {
     int type;
     int index;
+    int isAdded;
 };
 
 
