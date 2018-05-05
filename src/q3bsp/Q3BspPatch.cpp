@@ -65,7 +65,7 @@ void Q3BspBiquadPatch::Tesselate(int tessLevel)
 
 
 void Q3BspBiquadPatch::Render()
-{    
+{
     // render the patch
     if (!GL_EXT_multi_draw_arrays)
     {
@@ -75,10 +75,10 @@ void Q3BspBiquadPatch::Render()
                             &m_indices[row * 2 * (m_tesselationLevel + 1)]);
         }
     }
-    else 
+    else
     {
-        glMultiDrawElementsEXT(GL_TRIANGLE_STRIP, m_trianglesPerRow,
+        glMultiDrawElements(GL_TRIANGLE_STRIP, m_trianglesPerRow,
                                GL_UNSIGNED_INT, (const void **)m_rowIndexPointers,
-                               m_tesselationLevel); 
-    } 
+                               m_tesselationLevel);
+    }
 }

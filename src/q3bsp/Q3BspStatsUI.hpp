@@ -21,7 +21,7 @@ public:
     void Render();
 
 private:
-    Font *m_font;
+    q3Font *m_font;
 };
 
 #endif

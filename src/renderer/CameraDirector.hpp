@@ -8,10 +8,10 @@
  * global manager for all game cameras
  */
 
-class CameraDirector 
+class CameraDirector
 {
 public:
-    CameraDirector::CameraDirector() : m_activeCamera(NULL)
+    CameraDirector() : m_activeCamera(0)
     {
     }
 

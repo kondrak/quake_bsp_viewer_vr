@@ -12,7 +12,7 @@ class  Texture;
 struct Q3BspPatch;
 
 /*
- *  Quake III map 
+ *  Quake III map
  */
 
 class Q3BspMap : public BspMap
@@ -34,7 +34,7 @@ public:
 
     bool ClusterVisible(int cameraCluster, int testCluster)   const;
     int  FindCameraLeaf(const Math::Vector3f &cameraPosition) const;
-    void CalculateVisibleFaces(const Math::Vector3f &cameraPosition);   
+    void CalculateVisibleFaces(const Math::Vector3f &cameraPosition);
 
     // bsp data
     Q3BspHeader     header;
@@ -75,7 +75,7 @@ private:
     std::vector<Q3BspPatch *>       m_patches;      // curved surfaces
     std::vector<Texture *>          m_textures;     // loaded in-game textures
     std::vector<Q3FaceRenderable *> m_visibleFaces; // list of visible surfaces to render
-    GLuint  *m_lightmapTextures;                    // bsp lightmaps 
+    GLuint  *m_lightmapTextures;                    // bsp lightmaps
 
     Frustum  m_frustum;                             // view frustum
 

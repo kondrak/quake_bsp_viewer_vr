@@ -1,13 +1,17 @@
 #ifndef INPUTHANDLERS_INCLUDED
 #define INPUTHANDLERS_INCLUDED
 
+#ifdef _WIN32
 #include <SDL.h>
+#else
+#include <SDL2/SDL.h>
+#endif
 
 /*
  * application input/event handlers
  */
 
-enum KeyCode
+enum my_KeyCode
 {
     KEY_NULL,
     KEY_1,
@@ -64,7 +68,7 @@ enum KeyCode
 };
 
 // handler functions
-KeyCode SDLKeyToKeyCode( SDL_Keycode key );
+my_KeyCode SDLKeyToKeyCode( SDL_Keycode key );
 void processEvents();
 
 #endif

@@ -103,7 +103,7 @@ void Q3BspMap::Init()
 
     m_renderFaces.reserve(faces.size());
 
-    // create the VAO 
+    // create the VAO
     glGenVertexArrays(1, &(m_renderBuffers.m_vertexArray));
     glBindVertexArray(m_renderBuffers.m_vertexArray);
 
@@ -130,7 +130,7 @@ void Q3BspMap::Init()
 
             // generate necessary VBOs for current face
             CreateBuffersForFace(f, faceArrayIdx);
-        }             
+        }
 
         ++faceArrayIdx;
         m_renderFaces.back().type = f.type;
@@ -146,7 +146,7 @@ void Q3BspMap::Init()
 
 
 void Q3BspMap::OnRenderStart()
-{ 
+{
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
@@ -154,7 +154,7 @@ void Q3BspMap::OnRenderStart()
 
 
 void Q3BspMap::Render()
-{ 
+{
     m_frustum.OnRender();
 
     m_mapStats.visiblePatches = 0;
@@ -230,10 +230,10 @@ int Q3BspMap::FindCameraLeaf(const Math::Vector3f & cameraPosition) const
         if(PointPlanePos( planes[nodes[leafIndex].plane].normal.x,
                           planes[nodes[leafIndex].plane].normal.y,
                           planes[nodes[leafIndex].plane].normal.z,
-                          planes[nodes[leafIndex].plane].dist, 
+                          planes[nodes[leafIndex].plane].dist,
                           cameraPosition ) == Math::PointInFrontOfPlane )
         {
-            leafIndex = nodes[leafIndex].children.x; 
+            leafIndex = nodes[leafIndex].children.x;
         }
         else
         {
@@ -254,18 +254,6 @@ void Q3BspMap::CalculateVisibleFaces(const Math::Vector3f &cameraPosition)
     int cameraLeaf    = FindCameraLeaf(cameraPosition * Q3BspMap::s_worldScale);
     int cameraCluster = m_renderLeaves[cameraLeaf].visCluster;
 
-    for (const auto &rl : m_renderLeaves)
-    {
-        //loop through faces in this leaf and set them to 0
-        for (int j = 0; j < rl.numFaces; ++j)
-        {
-            int idx = leafFaces[ rl.firstFace + j ].face;
-            Q3FaceRenderable *face = &m_renderFaces[ idx ];
-
-            face->isAdded = 0;
-        }
-    }
-
     //loop through the leaves
     for (const auto &rl : m_renderLeaves)
     {
@@ -277,17 +265,14 @@ void Q3BspMap::CalculateVisibleFaces(const Math::Vector3f &cameraPosition)
         if( !HasRenderFlag( Q3RenderSkipFC ) && !m_frustum.BoxInFrustum(  rl.boundingBoxVertices ) )
             continue;
 
-        //loop through faces in this leaf and add them to visibility set
+        //loop through faces in this leaf and them to visibility set
         for (int j = 0; j < rl.numFaces; ++j)
         {
             int idx = leafFaces[ rl.firstFace + j ].face;
-            Q3FaceRenderable *face = &m_renderFaces[ idx ];
+            Q3FaceRenderable *face = &m_renderFaces[ leafFaces[ rl.firstFace + j ].face ];
 
-            if (face->isAdded == 0)
-            {
+            if(std::find( m_visibleFaces.begin(), m_visibleFaces.end(), face ) == m_visibleFaces.end() )
                 m_visibleFaces.push_back( face );
-                face->isAdded = 1;
-            }
         }
     }
 
@@ -461,11 +446,11 @@ void Q3BspMap::RenderFace(int idx)
     glBindBuffer(GL_ARRAY_BUFFER, m_renderBuffers.m_faceVBOs[idx].m_vertexBuffer);
     glVertexAttribPointer(vertexPosAttr, 3, GL_FLOAT, GL_FALSE, sizeof(Q3BspVertexLump), (void*)(0));
 
-    // bind texture coords    
+    // bind texture coords
     glBindBuffer(GL_ARRAY_BUFFER, m_renderBuffers.m_faceVBOs[idx].m_texcoordBuffer);
     glVertexAttribPointer(texCoordAttr, 2, GL_FLOAT, GL_FALSE, sizeof(Q3BspVertexLump), (void*)(0));
 
-    // bind lightmap coords  
+    // bind lightmap coords
     glBindBuffer(GL_ARRAY_BUFFER, m_renderBuffers.m_faceVBOs[idx].m_lightmapTexcoordBuffer);
     glVertexAttribPointer(lmapCoordAttr, 2, GL_FLOAT, GL_FALSE, sizeof(Q3BspVertexLump), (void*)(0));
 
@@ -530,11 +515,11 @@ void Q3BspMap::RenderPatch(int idx)
         glBindBuffer(GL_ARRAY_BUFFER, m_renderBuffers.m_patchVBOs[idx][i].m_vertexBuffer);
         glVertexAttribPointer(vertexPosAttr, 3, GL_FLOAT, GL_FALSE, sizeof(Q3BspVertexLump), (void*)(0));
 
-        // bind texture coords    
+        // bind texture coords
         glBindBuffer(GL_ARRAY_BUFFER, m_renderBuffers.m_patchVBOs[idx][i].m_texcoordBuffer);
         glVertexAttribPointer(texCoordAttr, 2, GL_FLOAT, GL_FALSE, sizeof(Q3BspVertexLump), (void*)(0));
 
-        // bind lightmap coords  
+        // bind lightmap coords
         glBindBuffer(GL_ARRAY_BUFFER, m_renderBuffers.m_patchVBOs[idx][i].m_lightmapTexcoordBuffer);
         glVertexAttribPointer(lmapCoordAttr, 2, GL_FLOAT, GL_FALSE, sizeof(Q3BspVertexLump), (void*)(0));
 

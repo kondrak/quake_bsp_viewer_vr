@@ -1,6 +1,8 @@
 #include "Utils.hpp"
 #ifdef _WIN32
 #include <Windows.h>
+#else
+#include <iostream>
 #endif
 
 #include "renderer/OpenGL.hpp"
@@ -34,7 +36,7 @@ void DrawRectangle(float x, float y, float w, float h, float r, float g, float b
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_BLEND);
     glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();  
+    glLoadIdentity();
     glOrtho(-1.f, 1.f, 1.f, -1.0f, 0.1f, 10.0f);
 
     glMatrixMode(GL_MODELVIEW);

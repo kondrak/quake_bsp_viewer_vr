@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="QuakeBspViewer" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Release Win32">
+				<Option platforms="Windows;" />
+				<Option output="Release/QuakeBspViewer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release/" />
+				<Option deps_output="Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option parameters="maps/ntkjidm2.bsp" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-std=c++11" />
+					<Add option="-m32" />
+					<Add option="-DSDL_MAIN_HANDLED" />
+					<Add option="-DGLEW_STATIC" />
+					<Add directory="contrib/SDL/include/" />
+					<Add directory="contrib/" />
+					<Add directory="src/" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m32" />
+					<Add library="mingw32" />
+					<Add library="SDL2" />
+					<Add library="SDL2Main" />
+					<Add library="libglew_static" />
+					<Add library="OpenGL32" />
+					<Add directory="contrib/SDL/lib/x86/" />
+					<Add directory="contrib/glew-1.11.0/lib/Release/Win32/" />
+				</Linker>
+			</Target>
+			<Target title="Debug Win32">
+				<Option output="Debug/QuakeBspViewer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug/" />
+				<Option deps_output="Debug/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option parameters="maps/ntkjidm2.bsp" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-m32" />
+					<Add option="-Og" />
+					<Add option="-g" />
+					<Add option="-DSDL_MAIN_HANDLED" />
+					<Add option="-DGLEW_STATIC" />
+					<Add directory="contrib/SDL/include/" />
+					<Add directory="contrib/" />
+					<Add directory="src/" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add library="mingw32" />
+					<Add library="SDL2" />
+					<Add library="SDL2Main" />
+					<Add library="libglew_static" />
+					<Add library="OpenGL32" />
+					<Add directory="contrib/SDL/lib/x86/" />
+					<Add directory="contrib/glew-1.11.0/lib/Release/Win32/" />
+				</Linker>
+			</Target>
+			<Target title="Release Linux64">
+				<Option platforms="Unix;" />
+				<Option output="QuakeBspViewer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug/" />
+				<Option deps_output="Debug/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option parameters="maps/lun3dm5.bsp" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-m64" />
+					<Add option="-Og" />
+					<Add directory="contrib/SDL/include/" />
+					<Add directory="contrib/" />
+					<Add directory="src/" />
+				</Compiler>
+				<Linker>
+					<Add option="-m64" />
+					<Add library="GL" />
+					<Add library="libGLEW" />
+					<Add library="SDL2" />
+					<Add library="X11" />
+					<Add library="Xrandr" />
+					<Add library="Xinerama" />
+					<Add library="dl" />
+					<Add directory="/usr/lib/x86_64-linux-gnu/" />
+				</Linker>
+			</Target>
+			<Target title="Debug Linux64">
+				<Option platforms="Unix;" />
+				<Option output="QuakeBspViewer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug/" />
+				<Option deps_output="Debug/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option parameters="maps/lun3dm5.bsp" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-m64" />
+					<Add option="-g" />
+					<Add option="-Og" />
+					<Add directory="contrib/SDL/include/" />
+					<Add directory="contrib/" />
+					<Add directory="src/" />
+				</Compiler>
+				<Linker>
+					<Add option="-m64" />
+					<Add library="GL" />
+					<Add library="libGLEW" />
+					<Add library="SDL2" />
+					<Add library="X11" />
+					<Add library="Xrandr" />
+					<Add library="Xinerama" />
+					<Add library="dl" />
+					<Add directory="/usr/lib/x86_64-linux-gnu/" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="contrib/stb_image/stb_image.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="contrib/stb_image/stb_image.h" />
+		<Unit filename="src/Application.cpp" />
+		<Unit filename="src/Application.hpp" />
+		<Unit filename="src/Frustum.cpp" />
+		<Unit filename="src/Frustum.hpp" />
+		<Unit filename="src/InputHandlers.cpp" />
+		<Unit filename="src/InputHandlers.hpp" />
+		<Unit filename="src/Math.cpp" />
+		<Unit filename="src/Math.hpp" />
+		<Unit filename="src/StringHelpers.cpp" />
+		<Unit filename="src/StringHelpers.hpp" />
+		<Unit filename="src/Utils.cpp" />
+		<Unit filename="src/Utils.hpp" />
+		<Unit filename="src/common/BspMap.hpp" />
+		<Unit filename="src/common/StatsUI.hpp" />
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/q3bsp/Q3BSPLoader.cpp" />
+		<Unit filename="src/q3bsp/Q3BSPLoader.hpp" />
+		<Unit filename="src/q3bsp/Q3Bsp.hpp" />
+		<Unit filename="src/q3bsp/Q3BspMap.cpp" />
+		<Unit filename="src/q3bsp/Q3BspMap.hpp" />
+		<Unit filename="src/q3bsp/Q3BspPatch.cpp" />
+		<Unit filename="src/q3bsp/Q3BspPatch.hpp" />
+		<Unit filename="src/q3bsp/Q3BspRenderHelpers.hpp" />
+		<Unit filename="src/q3bsp/Q3BspStatsUI.cpp" />
+		<Unit filename="src/q3bsp/Q3BspStatsUI.hpp" />
+		<Unit filename="src/renderer/Camera.cpp" />
+		<Unit filename="src/renderer/Camera.hpp" />
+		<Unit filename="src/renderer/CameraDirector.cpp" />
+		<Unit filename="src/renderer/CameraDirector.hpp" />
+		<Unit filename="src/renderer/Font.cpp" />
+		<Unit filename="src/renderer/Font.hpp" />
+		<Unit filename="src/renderer/OpenGL.cpp" />
+		<Unit filename="src/renderer/OpenGL.hpp" />
+		<Unit filename="src/renderer/RenderContext.cpp" />
+		<Unit filename="src/renderer/RenderContext.hpp" />
+		<Unit filename="src/renderer/Shader.hpp" />
+		<Unit filename="src/renderer/ShaderManager.cpp" />
+		<Unit filename="src/renderer/ShaderManager.hpp" />
+		<Unit filename="src/renderer/Texture.cpp" />
+		<Unit filename="src/renderer/Texture.hpp" />
+		<Unit filename="src/renderer/TextureManager.cpp" />
+		<Unit filename="src/renderer/TextureManager.hpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

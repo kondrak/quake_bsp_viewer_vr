@@ -22,9 +22,11 @@ int main(int argc, char **argv)
 
 
     // initialize Glew
+    GLenum err;
     if (glewInit() != GLEW_OK)
     {
         LOG_MESSAGE_ASSERT(false, "Failed to initialize Glew.");
+        fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
         SDL_Quit();
         return 1;
     }
@@ -37,7 +39,7 @@ int main(int argc, char **argv)
 
     SDL_ShowCursor(SDL_DISABLE);
     g_application.OnStart(argc, argv);
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    glClearColor(0.7f, 0.0f, 0.0f, 0.0f);
 
     double now = 0, last = 0;
 

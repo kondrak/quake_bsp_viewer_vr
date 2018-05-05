@@ -3,7 +3,7 @@
 
 extern Application g_application;
 
-KeyCode SDLKeyToKeyCode(SDL_Keycode key)
+my_KeyCode SDLKeyToKeyCode(SDL_Keycode key)
 {
     switch (key)
     {
@@ -141,7 +141,7 @@ void processEvents()
         case SDL_QUIT:
             g_application.Terminate();
             break;
-            // window events      
+            // window events
         case SDL_WINDOWEVENT:
             switch (event.window.event)
             {
