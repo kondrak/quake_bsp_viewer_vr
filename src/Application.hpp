@@ -29,13 +29,13 @@ public:
     inline void Terminate()      { m_running = false; }
 
     void OnTerminate();
-    bool KeyPressed(my_KeyCode key);
-    void OnKeyPress(my_KeyCode key);
-    void OnKeyRelease(my_KeyCode key);
+    bool KeyPressed(q3KeyCode key);
+    void OnKeyPress(q3KeyCode key);
+    void OnKeyRelease(q3KeyCode key);
     void OnMouseMove(int x, int y);
 private:
     void UpdateCamera( float dt );
-    inline void SetKeyPressed(my_KeyCode key, bool pressed) { m_keyStates[key] = pressed; }
+    inline void SetKeyPressed(q3KeyCode key, bool pressed) { m_keyStates[key] = pressed; }
 
     // helper functions for parsing Quake entities
     Math::Vector3f FindPlayerStart(const char *entities);
@@ -44,7 +44,7 @@ private:
 
     bool m_running;
 
-    std::map< my_KeyCode, bool > m_keyStates;
+    std::map< q3KeyCode, bool > m_keyStates;
 
     BspMap  *m_q3map;    // loaded map
     StatsUI *m_q3stats;  // map stats UI

@@ -2,12 +2,6 @@
 #include <iostream>
 void RenderContext::Init(const char *title, int x, int y, int w, int h)
 {
-    if (SDL_Init (SDL_INIT_EVENTS | SDL_INIT_VIDEO) < 0)
-    {
-        printf ("sdl init error: %s", SDL_GetError());
-        return;
-    }
-
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     #ifdef _WIN32

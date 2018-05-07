@@ -11,7 +11,7 @@
  * application input/event handlers
  */
 
-enum my_KeyCode
+enum q3KeyCode
 {
     KEY_NULL,
     KEY_1,
@@ -68,7 +68,7 @@ enum my_KeyCode
 };
 
 // handler functions
-my_KeyCode SDLKeyToKeyCode( SDL_Keycode key );
+q3KeyCode SDLKeyToKeyCode( SDL_Keycode key );
 void processEvents();
 
 #endif

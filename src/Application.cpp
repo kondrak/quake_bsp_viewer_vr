@@ -106,7 +106,7 @@ void Application::OnTerminate()
 }
 
 
-bool Application::KeyPressed(my_KeyCode key)
+bool Application::KeyPressed(q3KeyCode key)
 {
     // to be 100% no undefined state exists
     if (m_keyStates.find(key) == m_keyStates.end())
@@ -116,7 +116,7 @@ bool Application::KeyPressed(my_KeyCode key)
 }
 
 
-void Application::OnKeyPress(my_KeyCode key)
+void Application::OnKeyPress(q3KeyCode key)
 {
     SetKeyPressed(key, true);
 
@@ -161,7 +161,7 @@ void Application::OnKeyPress(my_KeyCode key)
 }
 
 
-void Application::OnKeyRelease(my_KeyCode key)
+void Application::OnKeyRelease(q3KeyCode key)
 {
     SetKeyPressed(key, false);
 }

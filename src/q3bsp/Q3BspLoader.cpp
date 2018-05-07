@@ -1,6 +1,4 @@
 #include "q3bsp/Q3BspLoader.hpp"
-#include <fstream>
-#include <string.h>
 
 Q3BspMap *Q3BspLoader::Load(const std::string &filename)
 {

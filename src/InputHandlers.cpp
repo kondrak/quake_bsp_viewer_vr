@@ -3,7 +3,7 @@
 
 extern Application g_application;
 
-my_KeyCode SDLKeyToKeyCode(SDL_Keycode key)
+q3KeyCode SDLKeyToKeyCode(SDL_Keycode key)
 {
     switch (key)
     {
