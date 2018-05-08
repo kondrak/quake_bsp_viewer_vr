@@ -1,11 +1,10 @@
 #include "q3bsp/Q3BspLoader.hpp"
-#include <fstream>
 
 Q3BspMap *Q3BspLoader::Load(const std::string &filename)
 {
-    std::ifstream bspFile;    
+    std::ifstream bspFile;
     bspFile.open(filename, std::ios::in | std::ios::binary );
-    
+
     if(!bspFile.is_open())
     {
         return NULL;
@@ -25,7 +24,7 @@ Q3BspMap *Q3BspLoader::Load(const std::string &filename)
 
     // header is valid - load the rest of the map
     Q3BspMap *q3map = new Q3BspMap;
-    
+
     q3map->header = bspHeader;
 
     // entities lump
@@ -63,7 +62,7 @@ void Q3BspLoader::LoadBspHeader(Q3BspHeader &hdr, std::ifstream &fstream)
 
 void Q3BspLoader::LoadEntitiesLump(Q3BspMap *map, std::ifstream &fstream)
 {
-    map->entities.size = map->header.direntries[Entities].length;	
+    map->entities.size = map->header.direntries[Entities].length;
     map->entities.ents = new char[map->entities.size];
 
     fstream.seekg( map->header.direntries[Entities].offset, std::ios_base::beg );

@@ -9,7 +9,7 @@ extern Application   g_application;
 
 Q3StatsUI::Q3StatsUI(BspMap *map) : StatsUI(map)
 {
-    m_font = new Font("res/font.png");
+    m_font = new q3Font("res/font.png");
 
     m_font->SetScale(Math::Vector2f(2.f, 2.f));
 }

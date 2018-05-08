@@ -5,7 +5,7 @@
     #include <Windows.h>
     #include "glew-1.11.0/include/GL/glew.h"
 #else
-    #error "Only Windows platform supported for now."
+    #include "GL/glew.h"
 #endif
 
 #include "Math.hpp"

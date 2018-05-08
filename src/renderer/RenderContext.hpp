@@ -3,8 +3,14 @@
 
 #include "Math.hpp"
 #include "renderer/OpenGL.hpp"
+
+#ifdef _WIN32
 #include <SDL.h>
 #include <SDL_syswm.h>
+#else
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_syswm.h>
+#endif
 
 /*
  * SDL-based OpenGL render context
@@ -13,14 +19,14 @@
 class RenderContext
 {
 public:
-    RenderContext() : window(NULL), 
+    RenderContext() : window(NULL),
                       fov(75.f * PIdiv180),
-                      nearPlane(0.1f), 
-                      farPlane(1000.f), 
+                      nearPlane(0.1f),
+                      farPlane(1000.f),
                       scrRatio(0.0f),
-                      width(0), 
-                      height(0), 
-                      halfWidth(0), 
+                      width(0),
+                      height(0),
+                      halfWidth(0),
                       halfHeight(0),
                       left(0.0f),
                       right(0.0f),

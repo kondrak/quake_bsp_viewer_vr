@@ -13,8 +13,8 @@ static const int CHAR_HEIGHT    = 9;
 static const float CHAR_SPACING = 1.5f;
 
 
-Font::Font(const char *tex) : m_scale(1.f, 1.f), m_position(0.0f, 0.0f, 0.0f), m_color(1.f, 1.f, 1.f, 1.f)
-{    
+q3Font::q3Font(const char *tex) : m_scale(1.f, 1.f), m_position(0.0f, 0.0f, 0.0f), m_color(1.f, 1.f, 1.f, 1.f)
+{
     glGenVertexArrays(1, &m_fontVertexArray);
     glBindVertexArray(m_fontVertexArray);
 
@@ -46,7 +46,7 @@ Font::Font(const char *tex) : m_scale(1.f, 1.f), m_position(0.0f, 0.0f, 0.0f), m
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 }
 
-Font::~Font()
+q3Font::~q3Font()
 {
     if (glIsBuffer(m_vertexBuffer))
         glDeleteBuffers(1, &m_vertexBuffer);
@@ -60,7 +60,7 @@ Font::~Font()
         glDeleteVertexArrays(1, &m_fontVertexArray);
 }
 
-void Font::renderAt(const Math::Vector3f &pos, int w, int h, int uo, int vo, const Math::Vector4f &color)
+void q3Font::renderAt(const Math::Vector3f &pos, int w, int h, int uo, int vo, const Math::Vector4f &color)
 {
     LOG_MESSAGE_ASSERT(m_texture != NULL, "Trying to render with no texture?");
 
@@ -87,22 +87,22 @@ void Font::renderAt(const Math::Vector3f &pos, int w, int h, int uo, int vo, con
     glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, 0);
 }
 
-void Font::drawText(const std::string &text, float x, float y, float z, float r, float g, float b, float a)
+void q3Font::drawText(const std::string &text, float x, float y, float z, float r, float g, float b, float a)
 {
     drawText(text, Math::Vector3f(x, y, z), Math::Vector4f(r, g, b, a));
 }
 
-void Font::drawText(const std::string &text, float x, float y, float z)
+void q3Font::drawText(const std::string &text, float x, float y, float z)
 {
     drawText(text, Math::Vector3f(x, y, z), m_color);
 }
 
-void Font::drawText(const std::string &text)
+void q3Font::drawText(const std::string &text)
 {
     drawText(text, m_position, m_color);
 }
 
-void Font::drawText(const std::string &text, const Math::Vector3f &position, const Math::Vector4f &color)
+void q3Font::drawText(const std::string &text, const Math::Vector3f &position, const Math::Vector4f &color)
 {
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);

@@ -1,4 +1,9 @@
+#ifdef _WIN32
 #include <SDL.h>
+#else
+#include <SDL2/SDL.h>
+#endif
+
 #include "Application.hpp"
 #include "StringHelpers.hpp"
 #include "renderer/CameraDirector.hpp"
@@ -59,7 +64,7 @@ void Application::OnStart(int argc, char **argv)
 
 void Application::OnRender()
 {
-    //update global MVP matrix in primary shader    
+    //update global MVP matrix in primary shader
     glUniformMatrix4fv(ShaderManager::GetInstance()->UseShaderProgram(ShaderManager::BasicShader).uniforms[ModelViewProjectionMatrix], 1, GL_FALSE, &(g_renderContext.ModelViewProjectionMatrix[0]));
 
     // render the bsp
@@ -101,7 +106,7 @@ void Application::OnTerminate()
 }
 
 
-bool Application::KeyPressed(KeyCode key)
+bool Application::KeyPressed(q3KeyCode key)
 {
     // to be 100% no undefined state exists
     if (m_keyStates.find(key) == m_keyStates.end())
@@ -111,7 +116,7 @@ bool Application::KeyPressed(KeyCode key)
 }
 
 
-void Application::OnKeyPress(KeyCode key)
+void Application::OnKeyPress(q3KeyCode key)
 {
     SetKeyPressed(key, true);
 
@@ -156,7 +161,7 @@ void Application::OnKeyPress(KeyCode key)
 }
 
 
-void Application::OnKeyRelease(KeyCode key)
+void Application::OnKeyRelease(q3KeyCode key)
 {
     SetKeyPressed(key, false);
 }
@@ -261,7 +266,7 @@ bool Application::FindEntityAttribute(const std::string &entity, const char *ent
         }
 
         if (!strncmp(attribs[1].c_str(), entityName, strlen(attribs[1].c_str())))
-        {   
+        {
             attribFound = true;
         }
     }

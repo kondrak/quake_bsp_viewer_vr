@@ -9,7 +9,7 @@ class BspMap;
 class StatsUI;
 
 /*
- * main application 
+ * main application
  */
 
 class Application
@@ -23,19 +23,19 @@ public:
 
     void OnStart(int argc, char **argv);
     void OnRender();
-    void OnUpdate(float dt); 
+    void OnUpdate(float dt);
 
     inline bool Running() const  { return m_running; }
     inline void Terminate()      { m_running = false; }
 
     void OnTerminate();
-    bool KeyPressed(KeyCode key);
-    void OnKeyPress(KeyCode key);
-    void OnKeyRelease(KeyCode key);
+    bool KeyPressed(q3KeyCode key);
+    void OnKeyPress(q3KeyCode key);
+    void OnKeyRelease(q3KeyCode key);
     void OnMouseMove(int x, int y);
 private:
     void UpdateCamera( float dt );
-    inline void SetKeyPressed(KeyCode key, bool pressed) { m_keyStates[key] = pressed; }
+    inline void SetKeyPressed(q3KeyCode key, bool pressed) { m_keyStates[key] = pressed; }
 
     // helper functions for parsing Quake entities
     Math::Vector3f FindPlayerStart(const char *entities);
@@ -44,7 +44,7 @@ private:
 
     bool m_running;
 
-    std::map< KeyCode, bool > m_keyStates; 
+    std::map< q3KeyCode, bool > m_keyStates;
 
     BspMap  *m_q3map;    // loaded map
     StatsUI *m_q3stats;  // map stats UI
