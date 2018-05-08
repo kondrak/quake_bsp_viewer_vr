@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     // initialize Glew
     if (glewInit() != GLEW_OK)
     {
-		GLenum err = glGetError();
+        GLenum err = glGetError();
         LOG_MESSAGE_ASSERT(false, "Failed to initialize Glew.");
         fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
         SDL_Quit();
