@@ -1,7 +1,7 @@
 Quake BSP map viewer with Oculus Rift support
 ================
 
-This is a proof-of-concept Quake map viewer. It handles basic geometry and curved patch rendering but with no support for game-specific shaders, entities etc. It implement PVS and frustum culling so performance is optimal. At the moment only Quake III Arena maps are supported but an interface is provided for adding other BSP versions in the future.
+This is a BSP tree OpenGL renderer written in C++. It handles basic geometry and curved patch rendering but with no support for game-specific shaders, entities etc. It implement PVS and frustum culling so performance is optimal. At the moment only Quake III Arena maps are supported but an interface is provided for adding other BSP versions in the future.
 
 A separate <code>no_vr</code> branch contains code without any OculusVR dependencies if you're just interested in focusing solely on OpenGL renderer.
 
@@ -32,7 +32,7 @@ Dependencies
 This project uses following external libraries:
 
 - GLEW extension library
-- stb_image library for image handling (c) Sean Barret
+- [stb_image](https://github.com/nothings/stb) library for texture loading
 - SDL2 library for window/input 
 - VR support requires OculusVR SDK 1.3+ and Oculus Home installed
 
