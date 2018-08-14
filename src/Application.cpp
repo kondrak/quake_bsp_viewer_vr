@@ -26,7 +26,7 @@ void Application::OnWindowResize(int newWidth, int newHeight)
 
 void Application::OnStart(int argc, char **argv)
 {
-    glEnable(GL_MULTISAMPLE);
+    glDisable(GL_MULTISAMPLE);
 
     Q3BspLoader loader;
     // assume the parameter with a string ".bsp" is the map we want to load
@@ -145,6 +145,10 @@ void Application::OnKeyPress(q3KeyCode key)
         break;
     case KEY_F7:
         m_q3map->ToggleRenderFlag(Q3RenderSkipFC);
+        break;
+    case KEY_F8:
+        m_q3map->ToggleRenderFlag(Q3Multisampling);
+        glIsEnabled(GL_MULTISAMPLE) ? glDisable(GL_MULTISAMPLE) : glEnable(GL_MULTISAMPLE);
         break;
     case KEY_TILDE:
         m_debugRenderState++;

@@ -7,7 +7,7 @@ void RenderContext::Init(const char *title, int x, int y, int w, int h)
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     #ifdef _WIN32
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 2);
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 8);
     #endif
     SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
