@@ -1,5 +1,6 @@
 #include "renderer/RenderContext.hpp"
 #include <iostream>
+
 void RenderContext::Init(const char *title, int x, int y, int w, int h)
 {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);

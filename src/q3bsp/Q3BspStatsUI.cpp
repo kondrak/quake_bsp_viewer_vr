@@ -6,6 +6,7 @@
 
 extern RenderContext g_renderContext;
 extern Application   g_application;
+extern int g_fps;
 
 Q3StatsUI::Q3StatsUI(BspMap *map) : StatsUI(map)
 {
@@ -37,7 +38,11 @@ void Q3StatsUI::Render()
     const BspStats &stats = m_map->GetMapStats();
 
     std::stringstream statsStream;
+    statsStream.precision(5);
+    statsStream << "FPS: " << g_fps << " (" << (g_fps > 0 ? (1000.f / g_fps) : 0) << "ms)";
+    m_font->drawText(statsStream.str(), statsX, statsY + 6 * ySpacing, 0.f);
 
+    statsStream.str("");
     statsStream << "Total vertices: " << stats.totalVertices;
     m_font->drawText(statsStream.str(), statsX, statsY, 0.f);
 

@@ -465,9 +465,7 @@ void Q3BspMap::RenderFace(int idx)
             return;
         }
 
-        // render objects with missing textures without culling
         TextureManager::GetInstance()->BindTexture(m_missingTex);
-        glDisable(GL_CULL_FACE);
     }
 
     // bind a generic white texture if there's no lightmap for this surface
@@ -479,9 +477,6 @@ void Q3BspMap::RenderFace(int idx)
 
 
     glDrawElements(GL_TRIANGLES, faces[idx].n_meshverts, GL_UNSIGNED_INT, &meshVertices[faces[idx].meshvert]);
-
-    // reenable culling in case it was disabled by missing texture
-    glEnable(GL_CULL_FACE);
 }
 
 

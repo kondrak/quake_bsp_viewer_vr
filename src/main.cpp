@@ -8,6 +8,7 @@
 RenderContext  g_renderContext;
 Application    g_application;
 CameraDirector g_cameraDirector;
+int g_fps = 1;
 
 int main(int argc, char **argv)
 {
@@ -42,6 +43,8 @@ int main(int argc, char **argv)
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
     double now = 0, last = 0;
+    int numFrames = 0;
+    float time = 0.f;
 
     while (g_application.Running())
     {
@@ -59,7 +62,17 @@ int main(int argc, char **argv)
         g_application.OnRender();
 
         SDL_GL_SwapWindow(g_renderContext.window);
+
         last = now;
+        time += dt;
+        numFrames++;
+
+        if (time > .25f)
+        {
+            g_fps = int(numFrames / time);
+            numFrames = 0;
+            time = 0.f;
+        }
     }
 
     g_application.OnTerminate();
