@@ -1,7 +1,9 @@
 #include "InputHandlers.hpp"
 #include "Application.hpp"
+#include "renderer/RenderContext.hpp"
 
 extern Application g_application;
+extern RenderContext g_renderContext;
 
 q3KeyCode SDLKeyToKeyCode(SDL_Keycode key)
 {
@@ -125,12 +127,24 @@ void processEvents()
         {
         case SDL_KEYDOWN:
             // alt + f4 handling
-            if (event.key.keysym.sym == SDLK_F4 && (event.key.keysym.mod == KMOD_LALT || event.key.keysym.mod == KMOD_RALT))
+            if (event.key.keysym.sym == SDLK_F4 && (event.key.keysym.mod & KMOD_ALT))
             {
                 g_application.Terminate();
                 break;
             }
-            g_application.OnKeyPress( SDLKeyToKeyCode( event.key.keysym.sym ) );
+            // toggle fullscreen
+            if (event.key.keysym.sym == SDLK_RETURN && (event.key.keysym.mod & KMOD_ALT))
+            {
+                SDL_DisplayMode dMode;
+                bool isFullScreen = (SDL_GetWindowFlags(g_renderContext.window) & SDL_WINDOW_FULLSCREEN_DESKTOP) != 0;
+                SDL_SetWindowFullscreen(g_renderContext.window, isFullScreen ? 0 : SDL_WINDOW_FULLSCREEN_DESKTOP);
+                SDL_GetCurrentDisplayMode(0, &dMode);
+                g_renderContext.width  = dMode.w;
+                g_renderContext.height = dMode.h;
+                g_application.OnWindowResize(dMode.w, dMode.h);
+                break;
+            }
+            g_application.OnKeyPress(SDLKeyToKeyCode(event.key.keysym.sym));
             break;
         case SDL_KEYUP:
             g_application.OnKeyRelease(SDLKeyToKeyCode(event.key.keysym.sym));
