@@ -20,6 +20,11 @@ void Application::OnWindowResize(int newWidth, int newHeight)
 {
     g_renderContext.width  = newWidth;
     g_renderContext.height = newHeight;
+    g_renderContext.halfWidth = newWidth >> 1;
+    g_renderContext.halfHeight = newHeight >> 1;
+    g_renderContext.scrRatio = (float)newWidth / (float)newHeight;
+    g_renderContext.left = -g_renderContext.scrRatio;
+    g_renderContext.right = g_renderContext.scrRatio;
 
     glViewport(0, 0, newWidth, newHeight);
 }
