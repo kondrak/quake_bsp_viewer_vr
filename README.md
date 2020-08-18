@@ -7,14 +7,14 @@ A separate <code>no_vr</code> branch contains code without any OculusVR dependen
 
 Youtube demo:
 
-[![Screenshot](http://kondrak.info/images/q3vr_youtube.png?raw=true)](https://www.youtube.com/watch?v=pAGLW82ryBc)
+[![Screenshot](images/q3vr_youtube.png?raw=true)](https://www.youtube.com/watch?v=pAGLW82ryBc)
 
 Screenshots:
 
-![Screenshot](http://kondrak.info/images/qbsp/qbsp1.png?raw=true)
-![Screenshot](http://kondrak.info/images/qbsp/qbsp3.png?raw=true)
-![Screenshot](http://kondrak.info/images/qbsp/q3vr1.png?raw=true)
-![Screenshot](http://kondrak.info/images/qbsp/q3vr2.png?raw=true)
+![Screenshot](images/qbsp1.png?raw=true)
+![Screenshot](images/qbsp3.png?raw=true)
+![Screenshot](images/q3vr1.png?raw=true)
+![Screenshot](images/q3vr2.png?raw=true)
 Usage
 -----
 Running the viewer:
